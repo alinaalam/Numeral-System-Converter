@@ -6,9 +6,8 @@ import org.hyperskill.hstest.v6.testcase.TestCase;
 import java.util.List;
 
 class Clue {
-
     final String input;
-    final String answer;
+    String answer;
     final boolean provideAnswer;
 
     Clue(final String input, final String answer, final boolean provideAnswer) {
@@ -43,6 +42,26 @@ public class ConverterTest extends BaseStageTest<Clue> {
     public List<TestCase<Clue>> generate() {
         return List.of(
             /* Tests with a hint: */
+            testToAnswer("10\n0.234\n7", "0.14315", true),
+            testToAnswer("10\n10.234\n7", "13.14315", true),
+            testToAnswer("6\n2.555\n1", "11", true),
+            testToAnswer("35\naf.xy\n17", "148.g88a8", true),
+            testToAnswer("10\n11\n2", "1011", true),
+            testToAnswer("16\naaaaa.0\n24", "22df2.00000", true),
+            testToAnswer("16\n0.cdefb\n24", "0.j78da", true),
+            testToAnswer("16\naaaaa.cdefb\n24", "22df2.j78da", true),
+
+            /* Tests without a hint: */
+            testToAnswer("10\n0.2340\n7", "0.14315", false),
+            testToAnswer("10\n10.2340\n7", "13.14315", false),
+            testToAnswer("6\n2.5550\n1", "11", false),
+            testToAnswer("35\naf.xy0\n17", "148.g88a8", false),
+            testToAnswer("10\n12\n2", "1100", false),
+            testToAnswer("16\naaaaa.00\n24", "22df2.00000", false),
+            testToAnswer("16\n0.cdefb0\n24", "0.j78da", false),
+            testToAnswer("16\naaaaa.cdefb0\n24", "22df2.j78da", false),
+
+            /* Tests from previous stage (with a hint): */
             testToAnswer("10\n11\n2\n", "1011", true),
             testToAnswer("1\n11111\n10\n", "5", true),
             testToAnswer("10\n1000\n36\n", "rs", true),
@@ -52,7 +71,7 @@ public class ConverterTest extends BaseStageTest<Clue> {
             testToAnswer("1\n11111\n5\n", "10", true),
             testToAnswer("10\n4\n1\n", "1111", true),
 
-            /* Tests without a hint: */
+            /* Tests from previous stage (without a hint): */
             testToAnswer("10\n12\n2\n", "1100", false),
             testToAnswer("1\n1111111\n10\n", "7", false),
             testToAnswer("10\n1001\n36\n", "rt", false),
@@ -78,7 +97,12 @@ public class ConverterTest extends BaseStageTest<Clue> {
             );
         }
 
-        final String answer = lines[lines.length - 1];
+        String answer = lines[lines.length - 1];
+        answer = answer.replaceAll("[^\\p{Graph}]", "");
+        clue.answer = clue.answer.replaceAll("[^\\p{Graph}]", "");
+
+        answer = removeEndZeros(answer);
+        clue.answer = removeEndZeros(clue.answer);
 
         if (!answer.equals(clue.answer)) {
             if (clue.provideAnswer) {
@@ -99,5 +123,18 @@ public class ConverterTest extends BaseStageTest<Clue> {
         }
 
         return new CheckResult(true);
+    }
+
+    private String removeEndZeros(String number) {
+        if (!number.contains(".")) {
+            return number;
+        }
+        while (number.endsWith("0")) {
+            number = number.substring(0, number.length() - 1);
+        }
+        if (number.endsWith(".")) {
+            number = number.substring(0, number.length() - 1);
+        }
+        return number;
     }
 }
