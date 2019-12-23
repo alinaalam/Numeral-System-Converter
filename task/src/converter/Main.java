@@ -18,48 +18,9 @@ public class Main {
         String[] number = sourceNumber.split(DECIMAL);
 
         String integer = convertWholeNumberPart(number[0], sourceRadix, destinationRadix);
-        double fraction = convertFractionPart("0." + number[1], sourceRadix, destinationRadix);
+        String fraction = convertFractionPart("0." + number[1], sourceRadix, destinationRadix);
 
-        if (fraction > 0.0) {
-            System.out.println(integer + "." + fraction);
-        }
-        else {
-            System.out.println(integer);
-        }
-
-
-
-
-
-
-//        // split source number into whole number part and fraction part
-//        String wholeNumberPart = sourceNumber.split("\\.")[0];
-////        wholeNumberPart = convertWholeNumberPart(wholeNumberPart, sourceRadix, destinationRadix);
-//        String fractionPart = "";
-//
-//        if (sourceNumber.split("\\.").length > 1) {
-//            if (sourceRadix == 10) {
-//                double fraction = Double.parseDouble("0." + sourceNumber.split("\\.")[1]);
-//                DecimalFormat df = new DecimalFormat("#.#####");
-//                int i = 0;
-//
-//                while (i < 5) {
-//                    fraction = fraction * destinationRadix;
-//                    fractionPart += String.valueOf(fraction).split("\\.")[0];
-//
-//                    if (fraction == 0.0) {
-//                        break;
-//                    }
-//
-//                    fraction = Double.parseDouble("0." + String.valueOf(fraction).split("\\.")[1]);
-//                    fraction = Double.parseDouble(df.format(fraction));
-//
-//                    i++;
-//                }
-//            }
-//        }
-//
-//        System.out.println(wholeNumberPart + "." + fractionPart);
+        System.out.println(integer + "." + fraction);
     }
 
     private static String convertWholeNumberPart(String sourceNumber, int sourceRadix, int destinationRadix) {
@@ -81,7 +42,7 @@ public class Main {
         return Long.toString(immediateNumber, destinationRadix);
     }
 
-    private static double convertFractionPart(String sourceNumber, int sourceRadix, int destinationRadix) {
+    private static String convertFractionPart(String sourceNumber, int sourceRadix, int destinationRadix) {
         DecimalFormat df = new DecimalFormat("#.#####");
         StringBuilder fractionPart = new StringBuilder();
 
@@ -96,19 +57,26 @@ public class Main {
             }
 
             sourceNumber = "0." + String.valueOf(result).split(DECIMAL)[1];
+            sourceRadix = 10;
         }
 
         int i = 0;
         while (i < 5) {
             double fraction = Double.parseDouble(sourceNumber) * destinationRadix;
             sourceNumber = df.format(fraction);
+            sourceNumber = String.valueOf(sourceNumber);
             fractionPart.append(convertWholeNumberPart
                     (sourceNumber.split(DECIMAL)[0], sourceRadix, destinationRadix)
             );
-            sourceNumber = "0." + sourceNumber.split(DECIMAL)[1];
+            if (sourceNumber.split(DECIMAL).length > 1) {
+                sourceNumber = "0." + sourceNumber.split(DECIMAL)[1];
+            }
+            else {
+                break;
+            }
             i++;
         }
 
-        return Double.parseDouble(fractionPart.toString());
+        return fractionPart.toString();
     }
 }

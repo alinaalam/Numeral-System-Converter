@@ -1,32 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ConverterTest" tests="1" skipped="1" failures="0" errors="0" timestamp="2019-12-22T21:52:32" hostname="DE-MAC-104.local" time="108.994">
+<testsuite name="ConverterTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2019-12-23T21:06:17" hostname="DE-MAC-104.local" time="0.402">
   <properties/>
-  <testcase name="start" classname="ConverterTest" time="108.994">
-    <skipped/>
+  <testcase name="start" classname="ConverterTest" time="0.402">
+    <failure message="java.lang.AssertionError: Wrong answer in test #4&#10;&#10;Your answer is wrong.&#10;This is a sample test so we give you a hint.&#10;Input: 35&#10;af.xy&#10;17&#10;Your answer: 148.g8cac&#10;Correct answer: 148.g88a8&#10;&#10;We detected that you are using static variables, but they are not fully supported in testing. It might happen that if you try to avoid using them you will pass this stage.&#10;&#10;Below you can see the output of your program during this test&#10;Notice, that '&gt;' symbol means the start of the input:&#10;&#10;&gt;35&#10;&gt;af.xy&#10;&gt;17&#10;148.g8cac" type="java.lang.AssertionError">java.lang.AssertionError: Wrong answer in test #4
+
+Your answer is wrong.
+This is a sample test so we give you a hint.
+Input: 35
+af.xy
+17
+Your answer: 148.g8cac
+Correct answer: 148.g88a8
+
+We detected that you are using static variables, but they are not fully supported in testing. It might happen that if you try to avoid using them you will pass this stage.
+
+Below you can see the output of your program during this test
+Notice, that '&gt;' symbol means the start of the input:
+
+&gt;35
+&gt;af.xy
+&gt;17
+148.g8cac
+	at org.junit.Assert.fail(Assert.java:88)
+	at org.hyperskill.hstest.v6.stage.BaseStageTest.start(BaseStageTest.java:172)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)
+	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:32)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:93)
+	at com.sun.proxy.$Proxy2.processTestClass(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.processTestClass(TestWorker.java:118)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:175)
+	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:157)
+	at org.gradle.internal.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:404)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:63)
+	at org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:46)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:55)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+</failure>
   </testcase>
   <system-out><![CDATA[?[1;31m
 Start test 1?[0m
 >10
 >0.234
 >7
-0.14315.0
+0.14315
 ?[1;31m
 Start test 2?[0m
 >10
 >10.234
 >7
-13.14315.0
+13.14315
 ?[1;31m
 Start test 3?[0m
 >6
 >2.555
 >1
-11
+11.00000
 ?[1;31m
 Start test 4?[0m
 >35
 >af.xy
 >17
+148.g8cac
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
