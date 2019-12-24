@@ -1,6 +1,5 @@
 package converter;
 
-import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class Main {
@@ -18,14 +17,18 @@ public class Main {
         String[] number = sourceNumber.split(DECIMAL);
 
         String integer = convertWholeNumberPart(number[0], sourceRadix, destinationRadix);
-        String fraction = convertFractionPart("0." + number[1], sourceRadix, destinationRadix);
+        String fraction = "";
 
-        System.out.println(integer + "." + fraction);
+        if (number.length > 1) {
+            fraction = "." + convertFractionPart("0." + number[1], sourceRadix, destinationRadix);
+        }
+
+        System.out.println(integer + fraction);
     }
 
     private static String convertWholeNumberPart(String sourceNumber, int sourceRadix, int destinationRadix) {
         if (sourceRadix < Character.MIN_RADIX) {
-            return Long.toString(sourceNumber.length());
+            return Long.toString(sourceNumber.length(), destinationRadix);
         }
 
         else if (destinationRadix < Character.MIN_RADIX) {
@@ -43,7 +46,6 @@ public class Main {
     }
 
     private static String convertFractionPart(String sourceNumber, int sourceRadix, int destinationRadix) {
-        DecimalFormat df = new DecimalFormat("#.#####");
         StringBuilder fractionPart = new StringBuilder();
 
         if (sourceRadix != 10) {
@@ -52,7 +54,7 @@ public class Main {
 
             for (int i = 0; i < sourceNumber.length(); i++) {
                 double a = Long.parseLong(sourceNumber.charAt(i) + "", sourceRadix) * 1.0;
-                double b = Math.pow(sourceRadix, i);
+                double b = Math.pow(sourceRadix, i + 1);
                 result += a / b;
             }
 
@@ -63,8 +65,7 @@ public class Main {
         int i = 0;
         while (i < 5) {
             double fraction = Double.parseDouble(sourceNumber) * destinationRadix;
-            sourceNumber = df.format(fraction);
-            sourceNumber = String.valueOf(sourceNumber);
+            sourceNumber = String.valueOf(fraction);
             fractionPart.append(convertWholeNumberPart
                     (sourceNumber.split(DECIMAL)[0], sourceRadix, destinationRadix)
             );
