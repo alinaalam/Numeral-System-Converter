@@ -4,26 +4,35 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static final Scanner SCANNER = new Scanner(System.in);
     private static final String DECIMAL = "\\.";
 
     public static void main(String[] args) {
 
-        int sourceRadix = Integer.parseInt(SCANNER.nextLine());
-        String sourceNumber = SCANNER.nextLine();
-        int destinationRadix = Integer.parseInt(SCANNER.nextLine());
+        try {
+            Scanner scanner = new Scanner(System.in);
 
-        // interpret integer and fraction part independently
-        String[] number = sourceNumber.split(DECIMAL);
+            int sourceRadix = Integer.parseInt(scanner.nextLine());
+            String sourceNumber = scanner.nextLine();
+            int destinationRadix = Integer.parseInt(scanner.nextLine());
 
-        String integer = convertWholeNumberPart(number[0], sourceRadix, destinationRadix);
-        String fraction = "";
+            if (sourceRadix < 1 || sourceRadix > 36 || destinationRadix < 1 || destinationRadix > 36) {
+                throw new Exception();
+            }
 
-        if (number.length > 1) {
-            fraction = "." + convertFractionPart("0." + number[1], sourceRadix, destinationRadix);
+            // interpret integer and fraction part independently
+            String[] number = sourceNumber.split(DECIMAL);
+
+            String integer = convertWholeNumberPart(number[0], sourceRadix, destinationRadix);
+            String fraction = "";
+
+            if (number.length > 1) {
+                fraction = "." + convertFractionPart("0." + number[1], sourceRadix, destinationRadix);
+            }
+
+            System.out.println(integer + fraction);
+        } catch (Exception e) {
+            System.out.println("error");
         }
-
-        System.out.println(integer + fraction);
     }
 
     private static String convertWholeNumberPart(String sourceNumber, int sourceRadix, int destinationRadix) {

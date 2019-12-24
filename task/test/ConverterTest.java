@@ -42,6 +42,24 @@ public class ConverterTest extends BaseStageTest<Clue> {
     public List<TestCase<Clue>> generate() {
         return List.of(
             /* Tests with a hint: */
+            testToAnswer("a b\n\n\n", null, true),
+            testToAnswer("11\nabc\n\n", null, true),
+            testToAnswer("11\n1\ndas\n", null, true),
+            testToAnswer("0\n1\ndas\n", null, true),
+            testToAnswer("37\n1\ndas\n", null, true),
+            testToAnswer("36\n1\n0\n", null, true),
+            testToAnswer("36\n1\n37\n", null, true),
+
+            /* Tests without a hint: */
+            testToAnswer("c\n\n\n", null, false),
+            testToAnswer("12\nbc\n\n", null, false),
+            testToAnswer("12\n1\nhf\n", null, false),
+            testToAnswer("0\n2\nhf\n", null, false),
+            testToAnswer("37\n2\nhf\n", null, false),
+            testToAnswer("14\n2\n-1\n", null, false),
+            testToAnswer("14\n2\n38\n", null, false),
+
+            /* Tests from previous stage (with a hint): */
             testToAnswer("10\n0.234\n7", "0.14315", true),
             testToAnswer("10\n10.234\n7", "13.14315", true),
             testToAnswer("6\n2.555\n1", "11", true),
@@ -51,7 +69,7 @@ public class ConverterTest extends BaseStageTest<Clue> {
             testToAnswer("16\n0.cdefb\n24", "0.j78da", true),
             testToAnswer("16\naaaaa.cdefb\n24", "22df2.j78da", true),
 
-            /* Tests without a hint: */
+            /* Tests from previous stage (without a hint): */
             testToAnswer("10\n0.2340\n7", "0.14315", false),
             testToAnswer("10\n10.2340\n7", "13.14315", false),
             testToAnswer("6\n2.5550\n1", "11", false),
@@ -98,6 +116,26 @@ public class ConverterTest extends BaseStageTest<Clue> {
         }
 
         String answer = lines[lines.length - 1];
+
+        if (clue.answer == null) {
+            if (answer.toLowerCase().contains("error")) {
+                return new CheckResult(true);
+            } else if (clue.provideAnswer) {
+                return new CheckResult(
+                    false,
+                    "Your program doesn't say about an error.\n" +
+                        "This is a sample test so we give you a hint.\n" +
+                        "Input: " + clue.input + "\n" +
+                        "Your answer: " + answer
+                );
+            } else {
+                return new CheckResult(
+                    false,
+                    "Your program doesn't say about an error."
+                );
+            }
+        }
+
         answer = answer.replaceAll("[^\\p{Graph}]", "");
         clue.answer = clue.answer.replaceAll("[^\\p{Graph}]", "");
 
@@ -108,7 +146,7 @@ public class ConverterTest extends BaseStageTest<Clue> {
             if (clue.provideAnswer) {
                 return new CheckResult(
                     false,
-                    "Your answer is wrong.\n" +
+                    "Your program gives a wrong answer when there is no error in the input.\n" +
                         "This is a sample test so we give you a hint.\n" +
                         "Input: " + clue.input + "\n" +
                         "Your answer: " + answer + "\n" +
@@ -117,7 +155,7 @@ public class ConverterTest extends BaseStageTest<Clue> {
             } else {
                 return new CheckResult(
                     false,
-                    "Your answer is wrong."
+                    "Your program gives a wrong answer when there is no error in the input."
                 );
             }
         }
